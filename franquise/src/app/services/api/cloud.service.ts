@@ -17,7 +17,7 @@ export class CloudService {
 		return this.http.post(this.api_root + endpoint, data);
 	}
 
-	patch(endpoint: string, data: any): Observable<any> {
+ 	patch(endpoint: string, data: any): Observable<any> {
 		return this.http.patch(this.api_root + endpoint, data);
 	}
 

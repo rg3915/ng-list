@@ -1,21 +1,19 @@
  
     <h3>Franquias</h3>
     <div class="py-4">
-        <button type="button" class="btn btn-dark" >Salvar</button>
+        <button type="button" class="btn btn-dark" (click)="onSelect()">Salvar</button>
     </div>
     <div class="card-container"> 
         <div class="column"> 
                
-            <div *ngFor="let franch of FranquiaList; let i = index"> 
+            <div *ngFor="let franch of franquise; let i = index"> 
 
                 <div class="card-franchise"> 
-                    <div class="box-close" (click)='removeFranchise(i)'> X </div>
-                    <label>id:</label>
-                    <input class="form-control" [(ngModel)]="franch.id">
+                    <div class="box-close" (click)='removeFranchise(i)'> X </div> 
                     <label>Valor:</label>
-                    <input class="form-control" [(ngModel)]="franch.franchise">
-                    <!-- <label> Quantidade:</label>
-                    <input class="form-control" [(ngModel)]="franch.quantity"> -->
+                    <input class="form-control" [(ngModel)]="franch.value">
+                    <label> Quantidade:</label>
+                    <input class="form-control" [(ngModel)]="franch.quantity">
                 </div>
 
             </div> 

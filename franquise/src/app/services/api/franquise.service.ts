@@ -3,8 +3,11 @@ import { CloudService } from './cloud.service';
 import { Observable } from 'rxjs';
 
 export class ListFranchise {
-  public id: number;
-	public franchise: number; 
+  push(arg0: ListFranchise) {
+    throw new Error('Method not implemented.');
+  } 
+  public value: number; 
+  public quantity: number;
 }
 
 @Injectable({

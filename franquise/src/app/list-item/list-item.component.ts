@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { ListFranchise, FranquiseService } from 'src/app/services/api/franquise.service';  
 import { Observable } from 'rxjs';
 
@@ -9,82 +9,58 @@ import { Observable } from 'rxjs';
 })
 export class ListItemComponent implements OnInit {
 
-  constructor(private franquiaApi: FranquiseService) {}
-
-  ngOnInit(): void {}
- 
-  public FranquiaList : ListFranchise [] =[];
-
-  files: File[] = [];   
-
+    
   id: number = -1;
+  
+  constructor(private api: FranquiseService) {}
 
+  ngOnInit(): void {
+
+  }
+  
+ 
   addFranchise(){
-       this.FranquiaList.push(new ListFranchise());
+       this.franquise.push(new ListFranchise());
   }
    
   removeFranchise(index:number){
        if(index > -1){
-           this.FranquiaList.splice(index,1);
+         this.franquise.splice(index,1);
        }
   } 
 
 
     // Faz um get para pegar os items que foram cadastrados
     getItem(id: number) {
-      this.franquiaApi.getCollectionItem(id).subscribe(
+      this.api.getCollectionItem(id).subscribe(
           (data) => {
               console.log(data); 
-              this.FranquiaList = data.FranquiaList;  
+          this.franquise = data.FranquiaList;  
           }
       )
     }
+    
+    franquise: ListFranchise[] = [];  
+    onSelect() { 
+      let data: any = { 
+        ListFranchise: []
+      };
+ 
+      for (let ef of this.franquise) {
+        const franchise = `${ef.value}x ${ef.quantity};`
+        data.ListFranchise.push({ franchise })
+      } 
+      console.log(data)  
 
-    onSelect(event: any) {
-      console.log(event); 
 
-      let FranchiseSerializer: ListFranchise = this.FranquiaList;
+      console.log(data.ListFranchise.join()); 
+      
 
-      // se nao tiver ID
-      if (!FranchiseSerializer.id) return;
-
-      this.files.push(...event.addedFiles); 
-       
     }
 
      // Função é para remover os elementos da array e inserir novos elementos no field.
      onRemove(event: any) {
       console.log(event);
-      this.files.splice(this.files.indexOf(event), 1);
-    }
-
-     // depois de selecionar o serializar é salvo as informações no DB.
-     save() {
-
-      // form
-      let FranchiseSerializer: any = this.FranquiaList;    
-      if (FranchiseSerializer.FranquiaList) delete FranchiseSerializer.FranquiaList;
-
-      console.log(FranchiseSerializer);
-
-      // pega o save e passa para observable ler o arquivo e enviar para o DB
-      let save$: Observable<any>; 
-      
-      if (FranchiseSerializer.id) {
-          save$ = this.franquiaApi.editCollectable(FranchiseSerializer.id, FranchiseSerializer);
-      // se não inserir informação no banco de dados
-      } else {
-          save$ = this.franquiaApi.insertCollection(FranchiseSerializer);
-      }
-      
-      // subscribe save
-      save$.subscribe(
-          (data) => {
-              console.log(data); 
-          }
-      )
-      console.log(FranchiseSerializer);
-  }
-    
-
+       this.franquise.splice(this.franquise.indexOf(event), 1);
+    } 
 }
