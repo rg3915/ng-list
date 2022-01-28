@@ -4,14 +4,14 @@ from rest_framework import serializers
 class ListFranchiseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ListFranchise
-        fields = ['id', 'franchise', 'valuexquantity']
+        fields = ['id', 'franchise', 'value', 'quantity']
 
 class FranchiseSerializer(serializers.ModelSerializer):
-    listfranchise = ListFranchiseSerializer(many=True, read_only=True)
+    listfranchise = ListFranchiseSerializer(many=True)
 
     class Meta:
         model = Franchise
         fields = ['id', 'franchise', 'listfranchise']
 
-
-
+ 
+ 
