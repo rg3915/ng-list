@@ -6,7 +6,5 @@ class Franchise(models.Model):
 
 class ListFranchise(models.Model):
     franchise = models.ForeignKey(Franchise, on_delete=models.PROTECT, related_name="listfranchise")
-    value = models.IntegerField()
-    quantity = models.IntegerField()
-    
+    valuexquantity = models.CharField(max_length=300, blank=True, null=True)
 
