@@ -1,19 +1,40 @@
  
     <h3>Franquias</h3>
+    <form action="">
+    
     <div class="py-4">
         <button type="button" class="btn btn-dark" (click)="onSelect()">Salvar</button>
     </div>
+    
+    
+    <input 
+            type="text" 
+            class="form-control" 
+            id="franchise" 
+            name="franchise" 
+            [(ngModel)]="franchise.franchise" 
+            required
+            >
+    
+    
     <div class="card-container"> 
-        <div class="column"> 
-               
-            <div *ngFor="let franch of franquise; let i = index"> 
+    
+        <div class="column">  
+        
+            <div *ngFor="let ef of list; let i = index"> 
 
                 <div class="card-franchise"> 
+                
                     <div class="box-close" (click)='removeFranchise(i)'> X </div> 
+                    
                     <label>Valor:</label>
-                    <input class="form-control" [(ngModel)]="franch.value">
+                    
+                    <input class="form-control" [(ngModel)]="ef.value" name="value" >
+                    
                     <label> Quantidade:</label>
-                    <input class="form-control" [(ngModel)]="franch.quantity">
+                    
+                    <input class="form-control" [(ngModel)]="ef.quantity" name="quantity" >
+                    
                 </div>
 
             </div> 
@@ -26,3 +47,4 @@
         </div>
     </div>  
  
+    </form>
