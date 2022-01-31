@@ -28,5 +28,6 @@ router.register(r'franquia', FranchiseViewSet)
 urlpatterns = [ 
     # serializers 
     path('', include(router.urls)),
+    path('admin/', admin.site.urls),  
     path('api-auth/', include('rest_framework.urls')),
 ]
