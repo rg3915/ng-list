@@ -1,50 +1,41 @@
  
     <h3>Franquias</h3>
-    <form action="">
+<form action="">
+   
+        <div class="py-4">
+            <button type="button" class="btn btn-dark" (click)="onSelect()">Salvar</button>
+        </div>
+         
+        <input type="text" class="form-control" id="franchise" name="franchise" [(ngModel)]="f.franchise" required>
     
-    <div class="py-4">
-        <button type="button" class="btn btn-dark" (click)="onSelect()">Salvar</button>
-    </div>
+    <div class="card-container">
     
+        <div class="column">
     
-    <input 
-            type="text" 
-            class="form-control" 
-            id="franchise" 
-            name="franchise" 
-            [(ngModel)]="franchise.franchise" 
-            required
-            >
+            <div *ngFor="let ef of list; let i = index">
     
+                <div class="card-franchise">
     
-    <div class="card-container"> 
+                    <div class="box-close" (click)='removeFranchise(i)'> X </div>
     
-        <div class="column">  
-        
-            <div *ngFor="let ef of list; let i = index"> 
-
-                <div class="card-franchise"> 
-                
-                    <div class="box-close" (click)='removeFranchise(i)'> X </div> 
-                    
                     <label>Valor:</label>
-                    
-                    <input class="form-control" [(ngModel)]="ef.value" name="value" >
-                    
+    
+                    <input class="form-control" [(ngModel)]="ef.value" name="value">
+    
                     <label> Quantidade:</label>
-                    
-                    <input class="form-control" [(ngModel)]="ef.quantity" name="quantity" >
-                    
+    
+                    <input class="form-control" [(ngModel)]="ef.quantity" name="quantity">
+    
                 </div>
-
-            </div> 
-
+    
+            </div>
+    
             <a (click)="addFranchise()">
                 <div class="box-add">
                     <span>+</span>
-                </div> 
+                </div>
             </a>
         </div>
-    </div>  
- 
-    </form>
+    </div>
+     
+</form>

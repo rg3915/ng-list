@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ListFranchise, Franchise, FranquiseService } from 'src/app/services/api/franquise.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
   
 @Component({
   selector: 'app-list-item',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 export class ListItemComponent implements OnInit {
 
   @Input()
-  franchise: Franchise = {
+  f: Franchise = {
     franchise: '',
     listfranchise: []
   }; 
@@ -23,10 +24,17 @@ export class ListItemComponent implements OnInit {
   formSat: any = [];
   form: any;
   
-  constructor(private api: FranquiseService) { }
+  constructor(private api: FranquiseService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-
+  ngOnInit(): void { 
+    this.route.paramMap.subscribe((params) => {
+        let id = params.get("id");
+        console.log(id);
+        if (id) {
+          this.getItem(parseInt(id));
+        }
+      }
+    )
   }
 
   
@@ -44,34 +52,45 @@ export class ListItemComponent implements OnInit {
 
   // Faz um get para pegar os items que foram cadastrados
   getItem(id: number) {
-    this.api.getCollectionItem(id).subscribe(
-      (data) => {
-        console.log(data);
-        this.franchise = data.Franchise;
-      }
-    )
+    this.api.getCollectionItem(id).subscribe( 
+    data => {  
+      this.f = data 
+      this.id = data.id;
+      console.log(data); 
+      
+    },
+
+      err => console.error(err),
+      () => console.log('Informações carregadas'));
   }
   
   
   
 
   onSelect() { 
-    let data: any = {  
-    
-      franquise: this.franchise.franchise,
-      valuexquantity: [],
-      
+    let data: any = {
+      franquise: this.f.franchise,
+      listfranchise: [],
     };
-        
-    for (let ef of this.list) {
-      //const franchise = `${ef.value}x${ef.quantity};`
-      data.valuexquantity.push({ value: ef.value, quantity: ef.quantity }); 
+    
+    for (let ef of this.list) { 
+      data.listfranchise.push({ 
+        value: ef.value, 
+        quantity: ef.quantity 
+      }); 
     }
+    
     console.log(data)
     
     this.api.insertCollection(data).subscribe(data => {
+    
+      console.log("POST") 
       console.log(data)
-    })
+      alert("Add Sucessfully!");
+      
+      },
+      err => console.error(err),
+      () => console.log('Informações enviadas com sucesso!'));
    
    
     
