@@ -16,17 +16,15 @@ export class ListItemComponent implements OnInit {
     listfranchise: []
   }; 
   
-  list: ListFranchise[] = [];
-        
-  id: number = -1;
-  
-  
+  list: ListFranchise[] = [];   
   formSat: any = [];
   form: any;
+  id: any;
   
   constructor(private api: FranquiseService, private route: ActivatedRoute) { }
 
   ngOnInit(): void { 
+    
     this.route.paramMap.subscribe((params) => {
         let id = params.get("id");
         console.log(id);
@@ -35,12 +33,13 @@ export class ListItemComponent implements OnInit {
         }
       }
     )
+  
   }
+  
 
   
-  addFranchise() {
-   
-    this.list.push(new ListFranchise());
+  addFranchise() {  
+    this.list.push(new ListFranchise()); 
   }
 
   removeFranchise(index: number) {

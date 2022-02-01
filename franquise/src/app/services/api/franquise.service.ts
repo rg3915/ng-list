@@ -10,7 +10,7 @@ export class ListFranchise {
 
 
 export interface Franchise {
-  franchise?: string;
+  franchise: string;
   listfranchise: Array<ListFranchise>;
 }
 

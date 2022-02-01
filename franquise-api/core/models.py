@@ -1,7 +1,7 @@
 from django.db import models
 
 class Franchise(models.Model):
-        franchise = models.CharField(max_length=100)
+        franchise = models.CharField(max_length=100, blank=True, null=True)
      
      
         class Meta:
@@ -16,7 +16,6 @@ class Franchise(models.Model):
 
 class ListFranchise(models.Model):
         franchise = models.ForeignKey(Franchise, on_delete=models.PROTECT, related_name="listfranchise")
-        
         value = models.IntegerField()
         quantity = models.IntegerField()
 
