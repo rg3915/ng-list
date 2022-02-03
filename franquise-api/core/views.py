@@ -1,15 +1,17 @@
-from .serializers import ListFranchiseSerializer, FranchiseSerializer
-from core.models import Franchise, ListFranchise 
-from rest_framework import viewsets   
+from django.shortcuts import render
+from rest_framework import viewsets
+from . import models, serializers 
 
 
-class FranchiseViewSet(viewsets.ModelViewSet): 
-    queryset = Franchise.objects.all() 
-    serializer_class = FranchiseSerializer  
+# router.register(r'collectable', stamps_views.CollectableViewSet)
+class CollectableViewSet(viewsets.ModelViewSet):
+        queryset = models.Collectable.objects.all()
+        serializer_class = serializers.CollectableSerializer
+
     
-    
-class ListFranchiseViewSet(viewsets.ModelViewSet): 
-    queryset = ListFranchise.objects.all() 
-    serializer_class = ListFranchiseSerializer 
+# router.register(r'collectable-franchise', stamps_views.CollectableFranchiseViewSet)
+class CollectableFranchiseViewSet(viewsets.ModelViewSet):    
+        queryset = models.Franchise.objects.all()
+        serializer_class = serializers.FranchiseSerializer 
     
 
