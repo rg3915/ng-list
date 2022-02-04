@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import './variables.scss';
+
+
+body {
+  color: $black-olive;
+  background-color: $color_background;
+  margin: 0px;
+}
+
+.wrapper {
+  margin: auto;
+  width: 100%;
+  max-width: 940px;
+  padding-top: 50px;
+}
+ 

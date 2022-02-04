@@ -1,0 +1,39 @@
+<div class="wrapper"> 
+    <div class="separation-element">
+        <h3>Cadastrar</h3>
+        <app-form [form]="collectableForm"></app-form>
+    </div> 
+    
+    <div class="separation-element" *ngIf="collectableForm.getValue('type') == 'FIRST_EDITION_LETTER'">
+        <h3>Franchise</h3>
+        <div class="card-container">
+            <div class="column">
+                <div *ngFor="let ef of this.list; let i = index">
+                    <div class="card-franchise">
+                        <div class="box-close" (click)='onRemove(i)'> X </div>
+                        <label>Valor:</label>
+                        <input class="form-control" [(ngModel)]="ef.value" name="ef.value" id="ef.value">
+                        <label> Quantidade:</label>
+                        <input class="form-control" [(ngModel)]="ef.quantity" name="ef.quantity" id="ef.quantity">
+                    </div>
+                </div>
+                
+                <a (click)="addFranchise()">
+                    <div class="box-add">
+                        <span> + </span>
+                    </div>
+                </a>
+                
+            </div>
+        </div>
+    </div> 
+    
+    <div class="separation-element py-3">
+        <div class="bar-with-actions">
+            <div class="title">
+                <button type="button" class="btn btn-dark" (click)="save()">Salvar</button>
+            </div>
+        </div>
+    </div>
+    
+</div>

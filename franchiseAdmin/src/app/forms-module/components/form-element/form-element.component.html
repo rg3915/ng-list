@@ -1,0 +1,68 @@
+<!-- Aqui são os elementos de cada tipo de field text, checkbox, select, textarea já prontos para usar -->
+<div class="mb-3">
+    <label 
+        [for]="el.label" 
+        class="form-label">
+        <i *ngIf="el.required" 
+            class="fa fa-asterisk" 
+            aria-hidden="true"></i>{{ el.label }}</label>
+
+            
+    <div 
+        *ngIf="['text', 'tel', 'password', 'date', 'number'].includes(el.type)" 
+        class="form-input" 
+        [class.invalid]="el.is_valid === false">
+        
+        <input 
+            class="form-control" 
+            *ngIf="!el.options" 
+            type="{{ el.type }}" 
+            [(ngModel)]="el.value" 
+            (ngModelChange)="form_el_change(el)" 
+            (blur)="form_el_blur(el)" 
+            [disabled]="el.disabled" 
+            max="{{ el.max }}"
+            min="{{ el.min }}" />
+        
+        <input 
+            class="form-control" 
+            *ngIf="el.options" 
+            type="text" 
+            [(ngModel)]="el.value"
+            (ngModelChange)="form_el_change(el)" 
+            (blur)="form_el_blur(el)" 
+            list="dinamicdata"
+            [disabled]="el.disabled" />
+
+        <datalist 
+            *ngIf="el.options" 
+            id="dinamicdata">
+
+            <option *ngFor="let opt of el.options" [value]="opt.value">
+                {{ opt.label }}
+            </option>
+
+        </datalist>
+    </div>
+
+    <div *ngIf="['checkbox'].includes(el.type)" class="form-input" [class.invalid]="el.is_valid === false">
+        <input class="form-control" type="{{ el.type }}" [checked]="el.value" (change)="el.value = !el.value"
+            (ngModelChange)="form_el_change(el)" [disabled]="el.disabled" />
+    </div>
+
+    <div *ngIf="el.type == 'select'" class="form-input" [class.invalid]="el.is_valid === false">
+        <select class="form-control" id="{{ el.label }}" [(ngModel)]="el.value" (ngModelChange)="form_el_change(el)"
+            [disabled]="el.disabled">
+            <option value=""></option>
+            <option *ngFor="let opt of el.options" [value]="opt.value">
+                {{ opt.label }}
+            </option>
+        </select>
+    </div>
+
+    <div *ngIf="el.type == 'text-area'" class="form-input" [class.invalid]="el.is_valid === false">
+        <textarea class="form-control" id="{{ el.label }}" [(ngModel)]="el.value" (ngModelChange)="form_el_change(el)"
+            [disabled]="el.disabled">
+        </textarea>
+    </div>
+</div>

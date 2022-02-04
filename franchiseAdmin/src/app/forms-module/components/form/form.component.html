@@ -1,0 +1,10 @@
+<!-- Component form com custom class onde é possivel adicionar uma class para customizar o formulario -->
+<div class="form {{form?.custom_class}}"> 
+    <!-- nesse div temos temos um for onde usamos el para representar qualquer elemento e um atributo tipo hidden e novamente a custom class -->
+    <div *ngFor="let el of form?.elements; let i = index;" [hidden]="el.type == 'hidden'" class="form-el {{el.custom_class}}">
+
+        <!-- Formulario representado por um elemento -->
+        <app-form-element [el]="el"></app-form-element>
+
+    </div> 
+</div>
