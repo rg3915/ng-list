@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 
 export class Franchise {
+        id?: number;
         value: number;
         quantity: number;
 }

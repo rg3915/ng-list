@@ -111,6 +111,7 @@ export class AddItemComponent implements OnInit {
                 
                 for (let ef of this.list) {
                         collectable_serialized.franchise.push({
+                                id: ef.id,
                                 value: ef.value,
                                 quantity: ef.quantity
                         });
