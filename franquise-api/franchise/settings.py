@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
-    	'X-Register',
+    'X-Register',
 ]
 
 # CORS Config
@@ -46,13 +46,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-     
+
     # third-party
-    'corsheaders', 
+    'corsheaders',
     'rest_framework',
     'django_extensions',
-    
-    
+
+
     # apps
     'core',
 ]
@@ -122,17 +122,17 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us' 
-TIME_ZONE = 'UTC' 
-USE_I18N = True 
-USE_L10N = True 
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/' 
+STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # Default primary key field type
