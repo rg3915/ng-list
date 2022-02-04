@@ -7,8 +7,9 @@ from .models import Franchise, Collectable
 class FranchiseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Franchise
-        fields = '__all__'
+        fields = ('id', 'value', 'quantity', 'collectable')
         read_only_fields = ('id',)
+        # extra_kwargs = {'id': {'read_only': False, 'required': True}}
 
 
 # Coleção Completa
@@ -32,30 +33,48 @@ class CollectableSerializer(serializers.ModelSerializer):
             franchise = validated_data.pop('franchise')
 
         instance = super().create(validated_data)
-
+          
         if franchise:  # Franchise
-            for list in franchise:
-                list['collectable'] = instance
-                list = FranchiseSerializer().create(list)
+            for item in franchise:
+                item['collectable'] = instance
+                item = FranchiseSerializer().create(item)
         return instance
 
     def update(self, instance, validated_data):
         """
         Criar um colecionavel e seus elementos nested.
-        """
-        print("collection:", instance)
-        print("Dados que vem do frontend:", validated_data)
-
+        """ 
         franchise = None
 
         if 'franchise' in validated_data:
             franchise = validated_data.pop('franchise')
-
-        for data, item in zip(self.data.get('franchise'), franchise):
-            # Estou contando com o OrderedDict
-            obj = Franchise.objects.get(id=data['id'])
-            obj.value = item['value']
-            obj.quantity = item['quantity']
-            obj.save()
+        
+        # lista para remover o item da array pelo id
+        remove_items = Franchise.objects.filter(collectable=instance.id).values_list('id', flat=True)
+        itemlist = []
+        
+        for item in franchise:
+            if "id" in item.keys():
+	            # Se identificar que item tem Id, faça UPDATE
+                if instance.franchise.all().filter(id=item['id']).count() > 0:
+                    instance.franchise.all().filter(id=item['id']).update(**item)
+                    print("update") 
+                    
+                    # estou sempre fazendo append na lista porque ele não remove ou não deixa adicionar um novo
+                    item_instance = Franchise.objects.get(id=item['id']) 
+                    itemlist.append(item_instance.id)
+                
+                else:
+                    continue
+            else:  
+                # Se informações vir com Id = undefined ele cria com instance.
+                itens_instance = Franchise.objects.create(collectable=instance, **item)
+                itemlist.append(itens_instance.id)
+        
+        
+        # Remove item pelo id
+        for item_id in remove_items:
+            if item_id not in itemlist:
+                Franchise.objects.filter(id=item_id).delete()
 
         return instance
