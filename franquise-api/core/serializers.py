@@ -51,4 +51,11 @@ class CollectableSerializer(serializers.ModelSerializer):
         if 'franchise' in validated_data:
             franchise = validated_data.pop('franchise')
 
+        for data, item in zip(self.data.get('franchise'), franchise):
+            # Estou contando com o OrderedDict
+            obj = Franchise.objects.get(id=data['id'])
+            obj.value = item['value']
+            obj.quantity = item['quantity']
+            obj.save()
+
         return instance
