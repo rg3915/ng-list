@@ -14,4 +14,4 @@ class CollectableAdmin(admin.ModelAdmin):
 
 @admin.register(Franchise)
 class FranchiseAdmin(admin.ModelAdmin):
-    list_display = ('__str__',)
+    list_display = ('__str__', 'value', 'quantity')
