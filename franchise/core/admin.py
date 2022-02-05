@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Collection, Collectable, Franchise
+
+from .models import Collectable, Collection, Franchise
 
 
 @admin.register(Collection)
