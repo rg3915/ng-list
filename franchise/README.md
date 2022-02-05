@@ -20,3 +20,4 @@ python manage.py migrate
 python manage.py createsuperuser --username="admin" --email=""
 ```
 
+A aplicação estará rodando na porta 8000.

@@ -11,3 +11,7 @@ npm install
 ng serve
 ```
 
+A aplicação estará rodando na porta 4200.
+
+E a primeira rota é localhost:4200/list-item
+
